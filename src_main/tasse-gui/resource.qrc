@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+  <file alias="qtasse16.png">../resource/qtasse16.png</file>
+  <file alias="qtasse48.png">../resource/qtasse48.png</file>
+</qresource>
+</RCC>

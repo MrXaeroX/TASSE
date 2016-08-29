@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Shared Files">
+      <UniqueIdentifier>{0a5a7630-4a1e-4964-8bad-3af7c0868fd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared Files\Traits">
+      <UniqueIdentifier>{444f4683-3b9a-4e55-af3c-49d72f3f93ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MOC Files">
+      <UniqueIdentifier>{b3fb6523-2f4d-4747-abe1-40eb07fd5181}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src_main\tasse-gui\console.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src_main\tasse-gui\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src_main\tasse-gui\window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src_main\tasse-gui\moc_window.cpp">
+      <Filter>MOC Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src_main\tasse-gui\resource.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src_main\tasse\utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src_main\tasse\threads.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src_main\tasse\logfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src_main\tasse\cfgfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src_main\tasse\hbonds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src_main\tasse\topology.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src_main\tasse\nature.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src_main\shared\tasse.h">
+      <Filter>Shared Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\traits\bitutils.h">
+      <Filter>Shared Files\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\traits\datatypes.h">
+      <Filter>Shared Files\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\traits\fileutils.h">
+      <Filter>Shared Files\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\traits\interface.h">
+      <Filter>Shared Files\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\traits\nullptr.h">
+      <Filter>Shared Files\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\traits\static_assert.h">
+      <Filter>Shared Files\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\traits\unref.h">
+      <Filter>Shared Files\Traits</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\cfgfile.h">
+      <Filter>Shared Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\console.h">
+      <Filter>Shared Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\globals.h">
+      <Filter>Shared Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\logfile.h">
+      <Filter>Shared Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\secure_crt.h">
+      <Filter>Shared Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\threads.h">
+      <Filter>Shared Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\shared\utils.h">
+      <Filter>Shared Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\tasse\topology.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\tasse\hbonds.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\tasse-gui\value_for_control.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src_main\tasse\nature.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="tasse-gui.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\src_main\tasse-gui\window.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\src_main\tasse-gui\resource.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>
