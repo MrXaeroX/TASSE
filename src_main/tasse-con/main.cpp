@@ -40,11 +40,11 @@ static void usage()
 					" " PROGRAM_EXE_NAME " [arguments]\n"
 					CC_WHITE "Arguments:\n"
 					" -tf  : source topology filename\n"
-					" -tn  : source topology nature (0 = PDB [default], 1 = AMBER prmtop)\n"
+					" -tn  : source topology nature (0 = autodetect)\n"
 					" -cf  : source coordinate filename\n"
-					" -cn  : source coordinate nature (0 = PDB [default], 1 = AMBER mdcrd/rst)\n"
+					" -cn  : source coordinate nature (0 = autodetect)\n"
 					" -trf : coordinate trajectory filename\n"
-					" -trn : coordinate trajectory nature (0 = PDB list [default], 1 = AMBER mdcrd)\n"
+					" -trn : coordinate trajectory nature (0 = autodetect)\n"
 					" -n   : starting snapshot of the trajectory (skip N previous snapshots)\n"
 					" -o   : output PDB filename\n"
 					" -i   : output information filename\n"
@@ -421,6 +421,8 @@ static void cleanup()
 
 int main( int argc, char *argv[] )
 {
+	setlocale( LC_ALL, "C" );
+
 	// print program name and version info
 	banner();
 

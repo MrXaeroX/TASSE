@@ -68,7 +68,6 @@ static void parse_cmdline( int argc, char *argv[] )
 	strcat_s( gGlobals.output_tuples, "tuples.txt" );
 	strcat_s( gGlobals.solvent_title, "HOH" );
 
-	bool args_valid = true;
 	for ( int i = 1; i < argc; ++i ) {
 		if ( argv[i][0] == '-' ) {
 			if ( !strcmp( &argv[i][1], "v" ) ) {
@@ -225,6 +224,7 @@ static int QTASSE_Main( int argc, char *argv[] )
 	// setup locale and text codec
 	setlocale( LC_ALL, "C" );
 	QLocale usLocale( QLocale::English, QLocale::UnitedStates );
+	usLocale.setNumberOptions( QLocale::c().numberOptions() );
 	QLocale::setDefault( usLocale );
 	g_pDefaultCodec = QTextCodec::codecForName( "Windows-1251" );
 	QTextCodec::setCodecForLocale( g_pDefaultCodec );
@@ -241,6 +241,9 @@ static int QTASSE_Main( int argc, char *argv[] )
 	g_pApp = new QApplication( argc, argv );
 	g_pApp->setApplicationName( PROGRAM_LARGE_NAME );
 	g_pApp->setApplicationVersion( PROGRAM_VERSION );
+
+	// https://bugreports.qt.io/browse/QTBUG-15247
+	setlocale( LC_ALL, "C" );
 
 	// create the main window
 	CMainWindow::Instance().initialize();
@@ -302,7 +305,6 @@ int APIENTRY WinMain( HINSTANCE, HINSTANCE, LPSTR lpCmdLine, int )
 
 int main( int argc, char *argv[] )
 {
-	setlocale( LC_MESSAGES, "C" );
 	return QTASSE_Main( argc, argv );
 }
 

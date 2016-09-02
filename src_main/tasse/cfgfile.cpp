@@ -355,7 +355,7 @@ void CCfgList :: Load()
 	int numconfigfiles = 0;
 
 	utils->GetMainDirectory( configpath, sizeof(configpath) );
-	strncat_s( configpath, "/" PROGRAM_CONFIG_PATH, sizeof(configpath)-1 );
+	strncat_s( configpath, "./" PROGRAM_CONFIG_PATH, sizeof(configpath)-1 );
 
 	char **configfiles = utils->GetFileList( configpath, ".cfg", &numconfigfiles );
 

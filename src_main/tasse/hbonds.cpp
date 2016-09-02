@@ -217,7 +217,7 @@ protected:
 	bool TestFinalSolventBlocks( const HBFinalSolvent *s1, const HBFinalSolvent *s2 ) const;
 
 	void UpdatePerformanceCounter( HBPerfCounter *pc, real value ) const;
-	void FinalizePerformanceCounters( uint32 numFrames );
+	void FinalizePerformanceCounters();
 
 public:
 	TitleMap			titleMapH_;
@@ -630,7 +630,7 @@ void CHBonds :: Initialize()
 	crf_a_ = -ce / ( rc_sq_ * rc );
 	crf_b_ = ( ce - 1 ) / rc;
 	dd_e_ = real( 1.0 / 3.3 );	//!TODO: make tweakable?
-	rc_sq_ = min( rc_sq_, gpGlobals->hbond_max_length * gpGlobals->hbond_max_length );
+	rc_sq_ = std::min( rc_sq_, gpGlobals->hbond_max_length * gpGlobals->hbond_max_length );
 
 	logfile->Print( "CrfA = %12.8f\n", crf_a_ );
 	logfile->Print( "CrfB = %12.8f\n", crf_b_ );
@@ -775,7 +775,7 @@ void CHBonds :: BuildAtomLists()
 	memset( offsets, 0xff, atcount * sizeof(uint32) );
 
 	double startTime = utils->FloatMilliseconds();
-	double baseTime = startTime;
+	//double baseTime = startTime;
 
 	// build lists of biopolymer and solvent donors
 	for ( auto it = donorInfo_.cbegin(); it != donorInfo_.cend(); ++it ) {
@@ -1598,7 +1598,7 @@ void CHBonds :: UpdatePerformanceCounter( HBPerfCounter *pc, real value ) const
 	}
 }
 
-void CHBonds :: FinalizePerformanceCounters( uint32 totalFrames )
+void CHBonds :: FinalizePerformanceCounters()
 {
 	// calculate average values
 	if ( perfCounters_.pcMicroset.frames )
@@ -1789,7 +1789,7 @@ void CHBonds :: BuildFinalSolvent( uint32 totalFrames )
 	for ( auto it = finalSolventMap.begin(); it != finalSolventMap.end(); ++it )
 		utils->Free( it->second );
 
-	FinalizePerformanceCounters( totalFrames );
+	FinalizePerformanceCounters();
 }
 
 bool CHBonds :: PrintFinalTuples( uint32 totalFrames, const char *tupleFile ) const
@@ -1807,7 +1807,7 @@ bool CHBonds :: PrintFinalTuples( uint32 totalFrames, const char *tupleFile ) co
 	char localTitle[3][256], localName[64];
 
 	const uint32 max_hist_bins = 20;
-	uint32 num_hist_bins = min( max_hist_bins, totalFrames );
+	uint32 num_hist_bins = std::min( max_hist_bins, totalFrames );
 	uint32 hist_bin_data[max_hist_bins];
 	memset( hist_bin_data, 0, sizeof(hist_bin_data) );
 

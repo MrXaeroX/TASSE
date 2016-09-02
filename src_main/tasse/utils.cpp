@@ -100,6 +100,7 @@ void CUtils :: Fatal( const char *fmt, ... )
 	va_start( argptr, fmt );
 	_vsnprintf_s( output, sizeof(output), sizeof(output)-1, fmt, argptr );
 	va_end( argptr );
+
 #if defined(_QTASSE)
 	console->Print( CC_RED "<b>ERROR:</b> " CC_DEFAULT "%s", output );
 	throw std::runtime_error( output );
@@ -120,13 +121,13 @@ double CUtils :: FloatMilliseconds()
 #else //!_WIN32
 	struct timeval tp;
 	struct timezone tzp;
-	static int secbase = 0;
+	static time_t secbase = 0;
 	gettimeofday( &tp, &tzp );
 	if ( !secbase ) {
 		secbase = tp.tv_sec;
 		return tp.tv_usec / 1000.0;
 	}
-	return ( tp.tv_sec - secbase ) + tp.tv_usec / 1000.0;
+	return ( tp.tv_sec - secbase ) * 1000.0 + tp.tv_usec / 1000.0;
 #endif //_WIN32
 }
 
@@ -428,7 +429,7 @@ int CUtils :: ExtractFileName( char *dest, size_t size, const char *path )
 		maxsize = 0;
 	} else {
 		if ( s2[0] == '\\' || s2[0] == '/' ) ++s2;
-		maxsize = min( (int)(s-s2), (int)size-1 );
+		maxsize = std::min( (int)(s-s2), (int)size-1 );
 		strncpy_s( dest, size, s2, maxsize );
 		dest[s-s2] = 0;
 	}
@@ -451,7 +452,7 @@ int CUtils :: ExtractFilePath( char *dest, size_t size, const char *src )
 	while ( s != src && *s != '/' && *s != '\\' )
 		--s;
 
-	int maxsize = min( (int)(s-src), (int)size-1 );
+	int maxsize = std::min( (int)(s-src), (int)size-1 );
 
 	if ( maxsize > 0 )
 		strncpy_s( dest, size, src, maxsize );
@@ -478,7 +479,7 @@ int CUtils :: ExtractFileExtension( char *dest, size_t size, const char *path )
 		return 0;
 	}
 
-	size_t maxsize = min( slen - ( s - path ), size - 1 );
+	size_t maxsize = std::min( slen - ( s - path ), size - 1 );
 
 	if ( maxsize > 0 )
 		strncpy_s( dest, size, s, maxsize );
@@ -504,3 +505,4 @@ int CUtils :: GetMainDirectory( char *out, size_t outSize )
 	ExtractFilePath( out, outSize, buffer );
 	return 1;
 }
+

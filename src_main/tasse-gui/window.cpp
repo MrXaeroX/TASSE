@@ -47,11 +47,11 @@
 #include <QtGui/QTextEdit>
 #include <QtOpenGL/QGLWidget>
 
-#define ITEMDESC_MENU				BIT( 0 )
-#define ITEMDESC_TOOLBAR			BIT( 1 )
-#define ITEMDESC_TOGGLE				BIT( 2 )
-#define ITEMDESC_GROUP				BIT( 3 )
-#define ITEMDESC_DEFAULT			BIT( 4 )
+#define ITEMDESC_MENU				BIT( 0u )
+#define ITEMDESC_TOOLBAR			BIT( 1u )
+#define ITEMDESC_TOGGLE				BIT( 2u )
+#define ITEMDESC_GROUP				BIT( 3u )
+#define ITEMDESC_DEFAULT			BIT( 4u )
 
 struct MenuActionDesc {
 	const char	*menuName;
@@ -129,9 +129,12 @@ CMainWindow :: CMainWindow() : running_( false ), threaded_( false )
 	createToolBar();
 
 	QDesktopWidget dw;
-	setGeometry( dw.x() + ( dw.width() - 500 ) / 2,
+	setGeometry( dw.x() + ( dw.width() - 560 ) / 2,
 				 dw.y() + ( dw.height() - 560 ) / 2,
-				 500, 560 );
+				 560, 560 );
+
+	// initialize timing
+	utils->FloatMilliseconds();
 }
 
 CMainWindow :: ~CMainWindow()
@@ -238,7 +241,10 @@ void CMainWindow :: queryControls( const struct LayoutControlDesc *controlPtr, s
 		case CTRL_SLIDER:
 			{
 				QSlider *ctrl = qobject_cast<QSlider*>( controlPtr->w_ptr );
-				ValueForControl<int>( controlPtr ).assign( ctrl->value() );
+				if ( controlPtr->cvarType == CVAR_REAL )
+					ValueForControl<real>( controlPtr ).assign( real( 0.01 ) * ctrl->value() );
+				else
+					ValueForControl<int>( controlPtr ).assign( ctrl->value() );
 			}
 			break;
 		default:
@@ -345,6 +351,10 @@ void CMainWindow :: createControls( const struct LayoutControlDesc *controlPtr, 
 
 void CMainWindow :: createCanvas()
 {
+//	QGLFormat f;
+//	f.setDoubleBuffer(false);
+//	QGLFormat::setDefaultFormat(f);
+
 	canvas_ = new QGLWidget( this );
 	//!TODO
 }
@@ -357,10 +367,10 @@ void CMainWindow :: createLayout()
 	QWidget *central = new QWidget( this );
 	central->setStatusTip( DEFAULT_STATUS_TIP );
 
-	QGridLayout *gridLayout1 = new QGridLayout( this );
+	QGridLayout *gridLayout1 = new QGridLayout();
 	gridLayout1->setContentsMargins( 10, 10, 10, 10 );
 	createControls( s_BasicControls, sizeof(s_BasicControls)/sizeof(s_BasicControls[0]), gridLayout1 );
-	QGridLayout *gridLayout2 = new QGridLayout( this );
+	QGridLayout *gridLayout2 = new QGridLayout();
 	gridLayout2->setContentsMargins( 10, 10, 10, 10 );
 	createControls( s_AdvancedControls, sizeof(s_AdvancedControls)/sizeof(s_AdvancedControls[0]), gridLayout2 );
 
@@ -595,11 +605,11 @@ void CMainWindow :: onCmdRunStart()
 	try {
 		checkNatures();
 		startThreads();
-	} catch ( std::runtime_error &e ) {
-		QMessageBox::warning( this, PROGRAM_LARGE_NAME,QString( "Error: %1\nSee the log file for the details." ).arg( e.what() ) );
-		stopThreads();
+	} catch ( const std::runtime_error &e ) {
 		QApplication::restoreOverrideCursor();
+		stopThreads();
 		running_ = false;
+		QMessageBox::warning( this, PROGRAM_LARGE_NAME,QString( "Error: %1\nSee the log file for the details." ).arg( e.what() ) );
 	}
 }
 

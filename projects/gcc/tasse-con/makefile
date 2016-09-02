@@ -6,6 +6,7 @@
 MK_CC:=g++
 
 # Auto configuration
+MK_OUTPUT:=tasse
 ifeq ($(MK_PROFILE),)
 MK_PROFILE:=Release
 endif
@@ -14,12 +15,10 @@ MK_BITS:=$(shell getconf LONG_BIT)
 endif
 MK_DEFS:=-I../../../src_main/shared -I../../../src_main/tasse
 ifeq ($(MK_BITS),64)
-MK_OUTPUT=tasse64
 MK_MFLAG:=-m64
 MK_DEFS:=$(MK_DEFS) -D_M_X64
 MK_PLATFORM:=x64
 else
-MK_OUTPUT:=tasse
 MK_MFLAG:=-m32
 MK_DEFS:=$(MK_DEFS) -D_M_IX86
 MK_PLATFORM:=x86
@@ -44,7 +43,7 @@ MK_LADD:=-g
 endif
 
 MK_CFLAGS:=$(MK_MFLAG) $(MK_DEFS) -Wall -Wextra --std=c++11 -mtune=generic $(MK_OPT)
-MK_LFLAGS:=$(MK_MFLAG) $(MK_LADD)
+MK_LFLAGS:=$(MK_MFLAG) $(MK_LADD) -Wl,-rpath,.
 MK_ADDLIB:=-ldl -lstdc++ -static-libgcc -lm -lpthread
 
 # Source files
@@ -72,21 +71,21 @@ MK_OBJDIR_ALL:=$(MK_OBJDIR)all/
 MK_OBJLIST_ALL:=$(MK_SRCLIST_ALL:$(MK_SRCDIR_ALL)%.cpp=$(MK_OBJDIR_ALL)%.o)
 MK_OBJDIR_CON:=$(MK_OBJDIR)con/
 MK_OBJLIST_CON:=$(MK_SRCLIST_CON:$(MK_SRCDIR_CON)%.cpp=$(MK_OBJDIR_CON)%.o)
-MK_INSTALLDIR:=../../../bin/
+MK_INSTALLDIR:=../../../output/tasse_$(MK_PLATFORM)/
 
 # Build rules
 $(MK_OBJDIR_ALL)%.o: $(MK_SRCDIR_ALL)%.cpp
 	@echo "Compiling: $<"
-	$(MK_CC) $(MK_CFLAGS) -o "$@" -c "$<"
+	-@$(MK_CC) $(MK_CFLAGS) -o "$@" -c "$<"
 	
 $(MK_OBJDIR_CON)%.o: $(MK_SRCDIR_CON)%.cpp
 	@echo "Compiling: $<"
-	$(MK_CC) $(MK_CFLAGS) -o "$@" -c "$<"
+	-@$(MK_CC) $(MK_CFLAGS) -o "$@" -c "$<"
 
 $(MK_OBJDIR)$(MK_OUTPUT): neat $(MK_OBJLIST_ALL) $(MK_OBJLIST_CON)
 	@echo Linking $(MK_OUTPUT)...
-	$(MK_CC) $(MK_LFLAGS) -o $@ $(MK_OBJLIST_ALL) $(MK_OBJLIST_CON) $(MK_ADDLIB)
-	strip -s $@
+	-@$(MK_CC) $(MK_LFLAGS) -o $@ $(MK_OBJLIST_ALL) $(MK_OBJLIST_CON) $(MK_ADDLIB)
+	-@strip -s $@
 
 neat:
 	-@if [ ! -d "$(MK_OBJDIR_ALL)" ]; then mkdir -p "$(MK_OBJDIR_ALL)"; fi

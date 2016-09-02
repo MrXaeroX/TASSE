@@ -120,13 +120,13 @@ static void QRes_LoadCharges( ICfgFile *cfg )
 	while ( cfg->ParseToken( true ) ) {
 		size_t len = strlen( cfg->GetToken() );
 		const size_t maxlen = 4;
-		memcpy( resname.string, cfg->GetToken(), min( len, maxlen ) );
+		memcpy( resname.string, cfg->GetToken(), std::min( len, maxlen ) );
 		for ( size_t i = 0; i < len; ++i ) resname.string[i] = toupper( resname.string[i] );
 		for ( size_t i = len; i < maxlen; ++i ) resname.string[i] = ' ';
 		cfg->ParseToken( false );
 
 		len = strlen( cfg->GetToken() );
-		memcpy( atname.string, cfg->GetToken(), min( len, maxlen ) );
+		memcpy( atname.string, cfg->GetToken(), std::min( len, maxlen ) );
 		for ( size_t i = 0; i < len; ++i ) atname.string[i] = toupper( atname.string[i] );
 		for ( size_t i = len; i < maxlen; ++i ) atname.string[i] = ' ';
 		cfg->ParseToken( false );
@@ -149,13 +149,13 @@ static void VdWRes_LoadRadii( ICfgFile *cfg )
 	while ( cfg->ParseToken( true ) ) {
 		size_t len = strlen( cfg->GetToken() );
 		const size_t maxlen = 4;
-		memcpy( resname.string, cfg->GetToken(), min( len, maxlen ) );
+		memcpy( resname.string, cfg->GetToken(), std::min( len, maxlen ) );
 		for ( size_t i = 0; i < len; ++i ) resname.string[i] = toupper( resname.string[i] );
 		for ( size_t i = len; i < maxlen; ++i ) resname.string[i] = ' ';
 		cfg->ParseToken( false );
 
 		len = strlen( cfg->GetToken() );
-		memcpy( atname.string, cfg->GetToken(), min( len, maxlen ) );
+		memcpy( atname.string, cfg->GetToken(), std::min( len, maxlen ) );
 		for ( size_t i = 0; i < len; ++i ) atname.string[i] = toupper( atname.string[i] );
 		for ( size_t i = len; i < maxlen; ++i ) atname.string[i] = ' ';
 		cfg->ParseToken( false );
@@ -177,12 +177,12 @@ static void SolvRes_LoadResidues( ICfgFile *cfg )
 	while ( cfg->ParseToken( true ) ) {
 		size_t len = strlen( cfg->GetToken() );
 		const size_t maxlen = 4;
-		memcpy( curres.string, cfg->GetToken(), min( len, maxlen ) );
+		memcpy( curres.string, cfg->GetToken(), std::min( len, maxlen ) );
 		for ( size_t i = len; i < maxlen; ++i ) curres.string[i] = ' ';
 		if ( cfg->TokenAvailable() ) {
 			cfg->ParseToken( false );
 			len = strlen( cfg->GetToken() );
-			memcpy( mapres.string, cfg->GetToken(), min( len, maxlen ) );
+			memcpy( mapres.string, cfg->GetToken(), std::min( len, maxlen ) );
 			for ( size_t i = len; i < maxlen; ++i ) mapres.string[i] = ' ';
 			cfg->SkipRestOfLine();
 		} else {
@@ -779,7 +779,7 @@ bool CTopology :: LoadTopology_PDB( const char *topFile, bool loadCoords )
 		} else if ( !strncmp( line, "TER   ", 6 ) ) {
 			++chain_num;
 		} else if ( !strncmp( line, "REMARK", 6 ) ) {
-			const size_t linsize = min( size_t( 79 ), strlen( line ) );
+			const size_t linsize = std::min( size_t( 79 ), strlen( line ) );
 			memcpy( current_remark, line, linsize );
 			for ( size_t i = 0; i < linsize; ++i ) {
 				if ( current_remark[i] < 32 ) current_remark[i] = ' ';
@@ -1092,7 +1092,7 @@ void CTopology :: ProcessTrajectoryThread_AMBER( uint32 threadnum, uint32 num )
 					eof = true;
 					break;
 				}
-				const size_t linesize = min( framepos - linebase, sizeof(line)-1 );
+				const size_t linesize = std::min( framepos - linebase, sizeof(line)-1 );
 				assert( linesize > 0 );
 				if ( linesize == 0 ) {
 					eof = true;

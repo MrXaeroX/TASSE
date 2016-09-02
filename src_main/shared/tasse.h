@@ -67,6 +67,7 @@
 // system-specific includes
 #if defined(_WIN32)
 #define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
 #include <windows.h>
 #include <direct.h>
 #include <io.h>
@@ -87,13 +88,8 @@
 #include <set>
 #include <map>
 #include <algorithm>
-
-#if !defined(min)
-#define min		std::min
-#endif
-#if !defined(max)
-#define max		std::max
-#endif
+#include <memory>
+#include <stdexcept>
 
 #if defined(_LINUX)
 #define _stricmp	strcasecmp

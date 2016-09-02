@@ -21,6 +21,7 @@
 #ifndef TASSE_WINDOW_H
 #define TASSE_WINDOW_H
 
+#include <memory>
 #include "traits/datatypes.h"
 #include <QtGui/QMainWindow>
 #include <QtGui/QDoubleValidator>

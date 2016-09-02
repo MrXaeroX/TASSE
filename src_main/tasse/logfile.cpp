@@ -139,6 +139,8 @@ void CLogFile :: Write( const char *msg )
 		fputc( *s++, fp_ );
 	}
 
+	fflush( fp_ );
+
 #if defined(_WIN32) && defined(_DEBUG)
 	OutputDebugString( msg );
 #endif
